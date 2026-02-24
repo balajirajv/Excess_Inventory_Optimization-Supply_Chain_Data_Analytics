@@ -1,67 +1,93 @@
-# Supply_Chain_Analytics-Excess_Inventory_Optimization-Teradyne
-Welcome to the Excess Inventory Management System! This project aims to streamline the process of managing excess inventory by analyzing demand and calculating suggested needs and potential excess inventory.
+# 📦 Optimizing Excess Inventory Process to Mitigate Financial Risk
+### Teradyne – Supply Base Management (SBM) Capstone Project
 
-# Table of Contents
-- Features
-- Getting Started
-- Usage
-- Functions Overview
-- Data Sources
-- Contributing
-- License
+---
 
-# Features
-- Load and clean excess inventory, demand, and part data from Excel files.
-- Filter inventory data based on specific date ranges.
-- Calculate adjusted dates considering lead times.
-- Compute monthly demand and excess inventory.
-- Generate detailed reports with suggested need quantities.
-- Export results to CSV files for further analysis.
+## 📌 Project Overview
+Developed in collaboration with **Teradyne’s Supply Base Management (SBM) group**, this project optimizes the excess inventory approval process. By addressing demand volatility and long supplier lead times, we transitioned Teradyne from a subjective, manual oversight model to a **data-driven, algorithmic decision framework**.
 
-## Getting Started
-# Prerequisites
-To run this project, you will need the following:
-- Python 3.x
-- Pandas library
-- NumPy library
-- Tabulate library
-- Access to required Excel files
+**Goal:** Reduce bias, improve approval efficiency, and enhance capital utilization using Python-based quantitative modeling.
 
-# Usage
-1. Update the excess_inventory_filepath variable in the main_process() function with the correct path to your Excel files.
-2. Specify the months you want to analyze in the months list.
-3. Run the main process:
-   ------ python main.py
-4. Check the output CSV files in the specified output directory.
+---
 
-# Functions Overview
-'load_clean_data(month, excess_inventory_filepath)'
-- Loads and cleans data from specified Excel files.
-- Returns cleaned DataFrames for inventory, demand, and part data.
-'filter_data_by_date(Inv_df, year, month_num)'
-- Filters the inventory DataFrame based on the requested date range.
-'adjusted_dates(Inv_df_filtered, LTP_df_filtered)'
-- Merges inventory and part data to calculate adjusted dates and lead times.
-'demand_calculation(Demand_filtered, merged_df)'
-- Calculates monthly demand and potential excess inventory.
-'excess_inv_cost(Monthly_Excess, Inv_df, merged_df, month_num, year)'
-- Merges monthly excess data with relevant inventory data and prepares the final report.
+## 🎯 Business Problem
+Teradyne faced recurring excess inventory and financial leakage due to:
+* **Demand Volatility:** Rapid shifts in market requirements.
+* **Lead Time Complexity:** Long and variable supplier lead times.
+* **Subjective Workflows:** Approval systems relied on qualitative judgment rather than real-time data.
 
-# Data Sources
-This project relies on the following Excel files:
-- Excess Inventory Purchase Data
-- Demand Data
-- Part Data
-Make sure these files are correctly formatted and accessible for the scripts to function properly.
+**Financial Impact:**
+* Increased holding costs and reduced profitability.
+* Significant capital tied up on the balance sheet.
+* Lower operational efficiency in the supply chain.
 
-# Contributing
-Contributions are welcome! If you have suggestions for improvements or find a bug, please open an issue or submit a pull request.
+---
 
-1. Fork the repository
-2. Create your feature branch:
-------------git checkout -b feature/YourFeature
-3. Commit your changes:
------------------git commit -m "Add your feature description"
-4. Push to the branch:
-------------------------git push origin feature/YourFeature
-5. Open a pull request.
+## 📊 Data Landscape
+We synthesized 18 months of historical data across three primary domains:
+
+| Data Source | Scope | Key Attributes |
+| :--- | :--- | :--- |
+| **Excess Inventory** | 1,408 requests | Site, Part Number, PO Price, Qty Ordered |
+| **Demand Data** | 17 Files | Planned Demand, Parent Site, Due Date |
+| **Parts Data** | 17 Files | Cumulative Lead Time (weeks), Site |
+
+---
+
+## ⚙️ Methodology & Core Logic
+
+
+
+### 1. Data Integration
+The pipeline cleanses and merges disparate datasets (Demand, Inventory, and Lead Times) into structured snapshots for specific fiscal periods (2022 H2, 2023 H1, and 2023 H2).
+
+### 2. The Decision Algorithm
+The framework utilizes **Lead-Time-Adjusted Demand** to determine if a purchase is truly necessary.
+
+* **Adjusted Date Calculation:**
+    $$\text{Adjusted Date} = \text{Requested Date} + (\text{Cumulative Lead Time} \times 2 \times 7)$$
+* **Lead Time Segmentation:** * Short-term (< 182 days)
+    * Medium-term (182–365 days)
+    * Long-term (> 365 days)
+* **Suggested Need Formula:**
+    $$\text{Suggested Need} = \text{Aggregated Demand} - (\text{On Hand} + \text{Open Orders})$$
+* **Potential Excess Quantification:**
+    $$\text{Total Excess Cost} = (\text{Suggested Need} - \text{Quantity Ordered}) \times \text{PO Price}$$
+
+---
+
+## 📈 Key Results & Business Impact
+The implementation of the algorithmic framework led to immediate improvements in financial oversight:
+
+* **⚡ Enhanced Oversight:** 8% increase in requests escalated for high-level management review, ensuring better control over high-spend approvals.
+* **🔍 Risk Visibility:** Identified hidden excess risk across multiple periods:
+    * **2022 H2:** 7% visibility
+    * **2023 H1:** 43% visibility
+    * **2023 H2:** 55% visibility
+* **💰 Capital Efficiency:** Significant reduction in projected excess spend and optimized working capital.
+
+
+
+---
+
+## 🛠 Tech Stack
+* **Language:** Python
+* **Libraries:** Pandas (Data Manipulation), NumPy (Numerical Logic), Matplotlib/Seaborn (Visualization)
+* **Environment:** Jupyter Notebook / Google Colab
+
+---
+
+## 🔮 Future Enhancements
+* ML Integration: Implementing machine learning for predictive demand forecasting.
+* Real-time Monitoring: Dashboard for real-time stockout and excess monitoring.
+* MOQ Optimization: Incorporating Minimum Order Quantities into the "Suggested Need" logic.
+
+---
+
+## 👥 Team & Credits
+W.P. Carey School of Business – MSBA Applied Project
+* Term: Spring 2024
+* Team: 441
+
+## 📌 Conclusion
+This project proves that transitioning from subjective judgment to objective, lead-time-adjusted modeling allows supply chain groups to proactively mitigate financial risk and improve overall resilience.
